@@ -4,6 +4,7 @@ import Home from './screens/Home'
 import ClosedEligible from './screens/ClosedEligible'
 import Regions from './screens/Regions'
 import Detail from './screens/Detail'
+import Settings from './screens/Settings'
 
 function readProfile() {
   try {
@@ -16,7 +17,7 @@ function readProfile() {
 
 function App() {
   const [profile, setProfile] = useState(readProfile)
-  const [view, setView] = useState('home') // 'home' | 'setup' | 'closed' | 'regions'
+  const [view, setView] = useState('home') // 'home' | 'setup' | 'closed' | 'regions' | 'settings'
   const [detailItem, setDetailItem] = useState(null)
 
   if (!profile || view === 'setup') {
@@ -38,6 +39,10 @@ function App() {
     )
   } else if (view === 'regions') {
     screen = <Regions profile={profile} onBack={() => setView('home')} />
+  } else if (view === 'settings') {
+    screen = (
+      <Settings onBack={() => setView('home')} onEditProfile={() => setView('setup')} />
+    )
   } else {
     screen = (
       <Home
@@ -45,6 +50,7 @@ function App() {
         onEditProfile={() => setView('setup')}
         onOpenClosed={() => setView('closed')}
         onOpenRegions={() => setView('regions')}
+        onOpenSettings={() => setView('settings')}
         onOpenDetail={setDetailItem}
       />
     )

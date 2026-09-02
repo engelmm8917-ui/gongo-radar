@@ -20,7 +20,14 @@ function formatDday(days) {
   return `D+${Math.abs(days)}`
 }
 
-export default function Home({ profile, onEditProfile, onOpenClosed, onOpenRegions, onOpenDetail }) {
+export default function Home({
+  profile,
+  onEditProfile,
+  onOpenClosed,
+  onOpenRegions,
+  onOpenSettings,
+  onOpenDetail,
+}) {
   const [status, setStatus] = useState('loading') // loading | ready | error
   const [judged, setJudged] = useState([])
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
@@ -123,12 +130,19 @@ export default function Home({ profile, onEditProfile, onOpenClosed, onOpenRegio
 
   return (
     <main className="home">
-      <header className="home__summary">
+      <header className="home__header">
+        <h1 className="home__header-title">공고 레이더</h1>
+        <button type="button" className="home__settings-btn" onClick={onOpenSettings}>
+          설정
+        </button>
+      </header>
+
+      <div className="home__summary">
         <span className="home__summary-chip">{summaryText}</span>
         <button type="button" className="home__edit-btn" onClick={onEditProfile}>
           조건 수정
         </button>
-      </header>
+      </div>
 
       <section className="home__metrics">
         <div className="metric-card">
