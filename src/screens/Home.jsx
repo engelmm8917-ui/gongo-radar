@@ -125,9 +125,6 @@ export default function Home({ profile, onEditProfile, onOpenClosed, onOpenRegio
     <main className="home">
       <header className="home__summary">
         <span className="home__summary-chip">{summaryText}</span>
-        <button type="button" className="home__edit-btn" onClick={onOpenRegions}>
-          지역 분포
-        </button>
         <button type="button" className="home__edit-btn" onClick={onEditProfile}>
           조건 수정
         </button>
@@ -147,6 +144,13 @@ export default function Home({ profile, onEditProfile, onOpenClosed, onOpenRegio
           <span className="metric-card__value">{closedEligibleWithAmount.length}</span>
         </button>
       </section>
+
+      <button type="button" className="home__regions-btn" onClick={onOpenRegions}>
+        지역별 공고 분포 보기
+        <span className="home__regions-btn-arrow" aria-hidden="true">
+          →
+        </span>
+      </button>
 
       <section className="home__list">
         {visibleItems.length === 0 && (

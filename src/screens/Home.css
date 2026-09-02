@@ -93,6 +93,28 @@ button.metric-card {
   color: var(--status-warn);
 }
 
+.home__regions-btn {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 16px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-faint);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.home__regions-btn-arrow {
+  color: var(--text);
+  opacity: 0.6;
+}
+
 .home__list {
   display: flex;
   flex-direction: column;
