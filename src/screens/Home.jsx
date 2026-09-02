@@ -173,8 +173,6 @@ export default function Home({
         </span>
       </button>
 
-      {visibleItems.length > 0 && <p className="home__hint">기업당 추정 지원금 기준입니다</p>}
-
       <section className="home__list">
         {visibleItems.length === 0 && (
           <p className="home__empty">조건에 맞는 진행 중인 공고가 없습니다.</p>
@@ -197,7 +195,9 @@ export default function Home({
               <span className="announcement-card__title">{item.title}</span>
               <span className="announcement-card__org">{item.org}</span>
               <span className="announcement-card__amount">
-                {formatAmountEok(item.amountPerCompany)}
+                {item.amountPerCompany == null
+                  ? '미표기'
+                  : `기업당 추정 ${formatAmountEok(item.amountPerCompany)}`}
               </span>
               <span className="announcement-card__category">{decodeHtmlEntities(item.category)}</span>
             </button>
