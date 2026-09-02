@@ -1,16 +1,61 @@
-# React + Vite
+# 지원사업 공고 레이더
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## 한 줄
+K-Startup은 모든 공고를 보여줍니다. 이 앱은 우리 회사가 자격이 되는 것만 보여줍니다.
 
-Currently, two official plugins are available:
+## 데모
+https://gongo-radar.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 문제
+초기 창업기업 대표가 K-Startup·기업마당 목록을 매주 30분씩 훑는다.
+공고는 많은데 우리가 지원할 수 있는 건 일부다. 자격을 하나씩 대조하는 게 일이다.
 
-## React Compiler
+## 결과
+6개월치 공고 2,657건 → 조건에 맞는 119건.
+그리고 "자격이 됐는데 마감된 공고" 106건, 61억 8,043만원을 보여준다.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 데이터
+- 공공데이터포털 창업진흥원 K-Startup 오픈API 2종 (데이터셋 15125364)
+- 공고 정보 2,657건 + 통합공고 정보 511건
+- 수집 시점 기준 스냅샷 3.01MB
 
-## Expanding the Oxlint configuration
+## 설계에서 다룬 문제 3가지
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+### 1. 공고 API에 지원금 필드가 없다
+필드 30개를 정찰했으나 금액이 없었다. 통합공고 정보의 사업 예산을
+모집 기업 수로 나눈 추정치를 쓰기로 했다.
+- 두 API를 사업명으로 조인. HTML 엔티티 디코딩으로 조인율 94.6% → 99.6%
+- 예산·기업수 파싱 성공률 53%. 실패는 null 로 두고 0으로 채우지 않았다
+- 화면에 "기업당 추정"을 명시하고 상세 화면에 원문과 나눗셈 과정을 그대로 노출
+
+### 2. 브라우저에서 API를 직접 못 부른다
+공공데이터포털 API는 CORS 허용 헤더를 주지 않는다.
+수집(Node 스크립트)과 표시(브라우저)를 분리해 로컬 JSON 스냅샷을 읽는 구조로 만들었다.
+결과적으로 인증키 노출과 로딩 지연도 함께 해결됐고, 인터넷 없이도 전 화면이 동작한다.
+
+### 3. 숫자가 크면 오히려 의심받는다
+"자격이 됐던 마감 공고"가 956건으로 나왔다. 반년에 956개를 놓쳤다는 숫자는
+사용자가 믿지 않는다. 지원금이 확인된 106건만 집계하고,
+"지원금이 표기되지 않은 895건은 제외했습니다"를 화면에 명시했다.
+
+## 자격 판정
+공고 본문을 AI로 분석하지 않는다. API 필드만으로 지역·업력·신청대상을
+충족 / 확인 필요 / 미해당 3단계로 판정한다.
+판정 근거는 원문 그대로 노출하며, 앱이 "지원 가능합니다"라고 단정하지 않는다.
+최종 판단은 사용자가 한다.
+
+## 스택
+Vite + React. 서버·DB·로그인 없음. 상태는 localStorage.
+
+## 화면
+S0 조건 설정 / S1 홈 / S2 자격이 됐던 마감 공고 / S3 지역 분포 / S4 공고 상세 / S5 설정
+
+## 스크린샷
+
+| S0 조건 설정 | S1 홈 | S2 마감 공고 |
+|---|---|---|
+| ![S0 조건 설정](docs/screenshots/s0-profile-setup.png) | ![S1 홈](docs/screenshots/s1-home.png) | ![S2 마감 공고](docs/screenshots/s2-closed-eligible.png) |
+
+| S3 지역 분포 | S4 공고 상세 | S5 설정 |
+|---|---|---|
+| ![S3 지역 분포](docs/screenshots/s3-regions.png) | ![S4 공고 상세](docs/screenshots/s4-detail.png) | ![S5 설정](docs/screenshots/s5-settings.png) |
