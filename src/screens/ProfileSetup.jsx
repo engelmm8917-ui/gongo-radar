@@ -1,28 +1,13 @@
 import { useEffect, useState } from 'react'
 import { decodeHtmlEntities } from '../lib/text'
+import { SIDO_OPTIONS, BIZ_AGE_OPTIONS, TARGET_OPTIONS } from '../lib/constants'
 import './ProfileSetup.css'
 
-const SIDO_OPTIONS = [
-  '서울', '부산', '대구', '인천', '광주', '대전', '울산', '세종',
-  '경기', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주',
-]
-
-const BIZ_AGE_OPTIONS = [
-  '예비창업자', '1년미만', '2년미만', '3년미만', '5년미만', '7년미만', '10년미만', '10년이상',
-]
-
-// 화면 표기와 저장 값을 분리한다: '개인(일반인)' 을 고르면 저장/판정 값은 '일반인'.
-const TARGET_OPTIONS = [
-  { value: '일반기업', label: '일반기업' },
-  { value: '1인 창조기업', label: '1인 창조기업' },
-  { value: '일반인', label: '개인(일반인)' },
-]
-
-export default function ProfileSetup({ onComplete }) {
-  const [sido, setSido] = useState('')
-  const [bizAge, setBizAge] = useState('')
-  const [targetType, setTargetType] = useState('')
-  const [fields, setFields] = useState([])
+export default function ProfileSetup({ onComplete, initialProfile = null }) {
+  const [sido, setSido] = useState(initialProfile?.sido ?? '')
+  const [bizAge, setBizAge] = useState(initialProfile?.bizAge ?? '')
+  const [targetType, setTargetType] = useState(initialProfile?.targetType ?? '')
+  const [fields, setFields] = useState(initialProfile?.fields ?? [])
   const [categories, setCategories] = useState([])
   const [categoriesStatus, setCategoriesStatus] = useState('loading') // loading | ready | error
 

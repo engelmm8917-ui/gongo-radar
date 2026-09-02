@@ -58,19 +58,26 @@ function overallOf(reasons) {
 }
 
 // profile.fields(사업 분야)는 판정에 쓰지 않는다. 목록 필터에만 쓴다.
+// profile.ageBand 는 S0 에서 더 이상 입력받지 않는다. 없으면 연령 조건 자체를
+// 판정에서 뺀다 (미해당으로 취급해 전건이 제외되는 사고를 막는다).
 export function judge(item, profile) {
   const regionResult = judgeRegion(item, profile)
   const bizAgeResult = judgeBizAge(item, profile)
   const targetResult = judgeTarget(item, profile)
-  const ageResult = judgeAge(item, profile)
 
-  const reasons = [regionResult, bizAgeResult, targetResult, ageResult]
+  const reasons = [regionResult, bizAgeResult, targetResult]
+
+  let ageResult = null
+  if (profile.ageBand !== undefined) {
+    ageResult = judgeAge(item, profile)
+    reasons.push(ageResult)
+  }
 
   return {
     region: regionResult.판정,
     bizAge: bizAgeResult.판정,
     target: targetResult.판정,
-    age: ageResult.판정,
+    age: ageResult ? ageResult.판정 : null,
     overall: overallOf(reasons),
     reasons,
   }

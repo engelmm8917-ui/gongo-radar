@@ -11,6 +11,8 @@
   --status-warn-bg: rgba(184, 134, 11, 0.12);
   --status-info: #3b6ea5;
   --status-info-bg: rgba(59, 110, 165, 0.12);
+  --status-urgent: #c0392b;
+  --status-urgent-bg: rgba(192, 57, 43, 0.12);
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
 
@@ -38,6 +40,8 @@
     --status-warn-bg: rgba(234, 179, 8, 0.15);
     --status-info: #60a5fa;
     --status-info-bg: rgba(96, 165, 250, 0.15);
+    --status-urgent: #f87171;
+    --status-urgent-bg: rgba(248, 113, 113, 0.15);
   }
 }
 

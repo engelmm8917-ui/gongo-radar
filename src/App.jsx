@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import ProfileSetup from './screens/ProfileSetup'
+import Home from './screens/Home'
 
 function readProfile() {
   try {
@@ -10,28 +11,57 @@ function readProfile() {
   }
 }
 
-function App() {
-  const [profile, setProfile] = useState(readProfile)
-
-  if (!profile) {
-    return <ProfileSetup onComplete={setProfile} />
-  }
-
-  // S1(홈) 화면은 아직 만들지 않았다.
+function StubScreen({ title, onBack }) {
   return (
     <main style={{ maxWidth: 560, margin: '0 auto', padding: 24 }}>
-      <p>조건이 저장되어 있습니다. S1 화면은 아직 준비 중입니다.</p>
-      <pre>{JSON.stringify(profile, null, 2)}</pre>
-      <button
-        type="button"
-        onClick={() => {
-          localStorage.removeItem('profile')
-          setProfile(null)
-        }}
-      >
-        조건 다시 설정
+      <p>{title} — 다음 STEP에서 만듭니다.</p>
+      <button type="button" onClick={onBack}>
+        홈으로
       </button>
     </main>
+  )
+}
+
+function App() {
+  const [profile, setProfile] = useState(readProfile)
+  const [view, setView] = useState('home') // 'home' | 'setup' | 'closed' | 'detail'
+  const [detailItem, setDetailItem] = useState(null)
+
+  if (!profile || view === 'setup') {
+    return (
+      <ProfileSetup
+        initialProfile={profile}
+        onComplete={(p) => {
+          setProfile(p)
+          setView('home')
+        }}
+      />
+    )
+  }
+
+  if (view === 'closed') {
+    return <StubScreen title="자격이 됐던 마감 공고 (S2)" onBack={() => setView('home')} />
+  }
+
+  if (view === 'detail') {
+    return (
+      <StubScreen
+        title={`공고 상세 (S4) — ${detailItem?.title ?? ''}`}
+        onBack={() => setView('home')}
+      />
+    )
+  }
+
+  return (
+    <Home
+      profile={profile}
+      onEditProfile={() => setView('setup')}
+      onOpenClosed={() => setView('closed')}
+      onOpenDetail={(item) => {
+        setDetailItem(item)
+        setView('detail')
+      }}
+    />
   )
 }
 
