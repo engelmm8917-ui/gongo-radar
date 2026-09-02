@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 import { formatDateTime } from '../lib/format'
+import { clearApplied } from '../lib/applied'
 import ScreenHeader from '../components/ScreenHeader'
 import './Settings.css'
-
-const APPLIED_KEY = 'applied'
 
 async function loadMeta() {
   const res = await fetch(`/data/announcements.json?_=${Date.now()}`, { cache: 'no-store' })
@@ -50,7 +49,7 @@ export default function Settings({ onBack, onEditProfile }) {
   const handleClearApplied = () => {
     const ok = window.confirm("체크한 '신청했음' 표시를 모두 해제합니다. 계속할까요?")
     if (!ok) return
-    localStorage.setItem(APPLIED_KEY, '[]')
+    clearApplied()
     setCleared(true)
   }
 

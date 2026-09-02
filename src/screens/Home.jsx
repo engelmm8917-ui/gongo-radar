@@ -3,6 +3,7 @@ import { judge } from '../lib/eligibility'
 import { decodeHtmlEntities } from '../lib/text'
 import { daysUntil } from '../lib/date'
 import { formatAmount } from '../lib/format'
+import { readAppliedSet } from '../lib/applied'
 import { TARGET_OPTIONS } from '../lib/constants'
 import './Home.css'
 
@@ -30,6 +31,7 @@ export default function Home({
 }) {
   const [status, setStatus] = useState('loading') // loading | ready | error
   const [judged, setJudged] = useState([])
+  const [applied] = useState(readAppliedSet)
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
   const sentinelRef = useRef(null)
 
@@ -70,12 +72,17 @@ export default function Home({
     [eligibleOpen]
   )
 
+  // S2(ClosedEligible)의 activeItems 와 같은 기준: applied(신청했음) 로 체크한 건 뺀다.
   const closedEligibleWithAmount = useMemo(
     () =>
       judged.filter(
-        ({ item, result }) => !item.isOpen && result.overall === '지원가능' && item.amountPerCompany !== null
+        ({ item, result }) =>
+          !item.isOpen &&
+          result.overall === '지원가능' &&
+          item.amountPerCompany !== null &&
+          !applied.has(item.id)
       ),
-    [judged]
+    [judged, applied]
   )
 
   // profile.fields 는 목록 필터로만 쓴다. 빈 배열이면 전체 분류를 다 보여준다.

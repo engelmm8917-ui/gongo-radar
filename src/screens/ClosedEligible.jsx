@@ -1,26 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { judge } from '../lib/eligibility'
 import { formatAmountEok, formatKoreanAmountSum, formatDate } from '../lib/format'
+import { readAppliedSet, writeAppliedSet } from '../lib/applied'
 import ScreenHeader from '../components/ScreenHeader'
 import './ClosedEligible.css'
 
 const PAGE_SIZE = 30
-const APPLIED_KEY = 'applied'
-
-function readApplied() {
-  try {
-    const raw = localStorage.getItem(APPLIED_KEY)
-    const arr = raw ? JSON.parse(raw) : []
-    return new Set(Array.isArray(arr) ? arr : [])
-  } catch {
-    return new Set()
-  }
-}
 
 export default function ClosedEligible({ profile, onBack, onOpenDetail }) {
   const [status, setStatus] = useState('loading') // loading | ready | error
   const [judged, setJudged] = useState([])
-  const [applied, setApplied] = useState(readApplied)
+  const [applied, setApplied] = useState(readAppliedSet)
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
   const sentinelRef = useRef(null)
 
@@ -77,7 +67,7 @@ export default function ClosedEligible({ profile, onBack, onOpenDetail }) {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
       else next.add(id)
-      localStorage.setItem(APPLIED_KEY, JSON.stringify([...next]))
+      writeAppliedSet(next)
       return next
     })
   }
