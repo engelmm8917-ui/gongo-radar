@@ -153,6 +153,7 @@
   -webkit-box-orient: vertical;
   line-clamp: 2;
   overflow: hidden;
+  overflow-wrap: break-word;
   text-overflow: ellipsis;
 }
 

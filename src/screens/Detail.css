@@ -87,12 +87,14 @@
   font-weight: 700;
   color: var(--text-h);
   line-height: 1.4;
+  overflow-wrap: break-word;
 }
 
 .detail-panel__org {
   margin: 0;
   font-size: 14px;
   color: var(--text);
+  overflow-wrap: break-word;
 }
 
 .detail-panel__period {
