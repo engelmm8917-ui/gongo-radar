@@ -39,7 +39,7 @@ export default function ProfileSetup({ onComplete, initialProfile = null }) {
     setFields((prev) => (prev.includes(value) ? prev.filter((f) => f !== value) : [...prev, value]))
   }
 
-  const isComplete = sido !== '' && bizAge !== '' && targetType !== '' && fields.length > 0
+  const isComplete = sido !== '' && bizAge !== '' && targetType !== ''
 
   const handleSubmit = () => {
     if (!isComplete) return
@@ -50,7 +50,7 @@ export default function ProfileSetup({ onComplete, initialProfile = null }) {
 
   return (
     <main className="profile-setup">
-      <p className="profile-setup__intro">딱 4개만 고르면 됩니다. 30초면 끝납니다.</p>
+      <p className="profile-setup__intro">3개만 고르면 됩니다. 사업 분야는 나중에 골라도 됩니다.</p>
 
       <section className="profile-setup__section">
         <h2>소재지</h2>
