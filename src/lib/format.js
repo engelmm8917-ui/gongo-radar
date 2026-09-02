@@ -1,8 +1,3 @@
-export function formatAmount(value) {
-  if (value === null || value === undefined) return '미표기'
-  return `기업당 추정 ${Math.round(value / 10000).toLocaleString('ko-KR')}만원`
-}
-
 function manwonToEokString(manwon) {
   const eok = Math.floor(manwon / 10000)
   const rest = manwon % 10000
