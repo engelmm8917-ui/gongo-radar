@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import ProfileSetup from './screens/ProfileSetup'
 import Home from './screens/Home'
+import ClosedEligible from './screens/ClosedEligible'
 
 function readProfile() {
   try {
@@ -40,7 +41,7 @@ function App() {
   }
 
   if (view === 'closed') {
-    return <StubScreen title="자격이 됐던 마감 공고 (S2)" onBack={() => setView('home')} />
+    return <ClosedEligible profile={profile} onBack={() => setView('home')} />
   }
 
   if (view === 'detail') {

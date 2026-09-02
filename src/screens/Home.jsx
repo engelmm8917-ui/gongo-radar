@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { judge } from '../lib/eligibility'
 import { decodeHtmlEntities } from '../lib/text'
 import { daysUntil } from '../lib/date'
+import { formatAmount } from '../lib/format'
 import { TARGET_OPTIONS } from '../lib/constants'
 import './Home.css'
 
@@ -10,11 +11,6 @@ const DUE_SOON_DAYS = 7
 
 function targetLabel(value) {
   return TARGET_OPTIONS.find((o) => o.value === value)?.label ?? value
-}
-
-function formatAmount(value) {
-  if (value === null || value === undefined) return '미표기'
-  return `기업당 추정 ${Math.round(value / 10000).toLocaleString('ko-KR')}만원`
 }
 
 function formatDday(days) {

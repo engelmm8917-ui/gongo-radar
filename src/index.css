@@ -4,6 +4,7 @@
   --bg: #fafafa;
   --surface: #ffffff;
   --border: #dfe2e6;
+  --border-faint: rgba(22, 24, 29, 0.08);
 
   --status-ok: #2f9e57;
   --status-ok-bg: rgba(47, 158, 87, 0.12);
@@ -33,6 +34,7 @@
     --bg: #14161a;
     --surface: #1b1e24;
     --border: #2c2f36;
+    --border-faint: rgba(255, 255, 255, 0.08);
 
     --status-ok: #4ade80;
     --status-ok-bg: rgba(74, 222, 128, 0.15);
