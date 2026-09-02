@@ -17,7 +17,7 @@ function readApplied() {
   }
 }
 
-export default function ClosedEligible({ profile, onBack }) {
+export default function ClosedEligible({ profile, onBack, onOpenDetail }) {
   const [status, setStatus] = useState('loading') // loading | ready | error
   const [judged, setJudged] = useState([])
   const [applied, setApplied] = useState(readApplied)
@@ -138,23 +138,31 @@ export default function ClosedEligible({ profile, onBack }) {
         {visibleItems.map(({ item }) => {
           const isApplied = applied.has(item.id)
           return (
-            <label
+            <div
               key={item.id}
               className={`closed-row${isApplied ? ' closed-row--applied' : ''}`}
             >
-              <input
-                type="checkbox"
-                className="closed-row__checkbox"
-                checked={isApplied}
-                onChange={() => toggleApplied(item.id)}
-              />
-              <span className="closed-row__main">
-                <span className="closed-row__date">{formatDate(item.endAt)}</span>
-                <span className="closed-row__title">{item.title}</span>
-                <span className="closed-row__org">{item.org}</span>
-              </span>
-              <span className="closed-row__amount">{formatAmountEok(item.amountPerCompany)}</span>
-            </label>
+              <label className="closed-row__checkbox-wrap">
+                <input
+                  type="checkbox"
+                  className="closed-row__checkbox"
+                  checked={isApplied}
+                  onChange={() => toggleApplied(item.id)}
+                />
+              </label>
+              <button
+                type="button"
+                className="closed-row__content"
+                onClick={() => onOpenDetail(item)}
+              >
+                <span className="closed-row__main">
+                  <span className="closed-row__date">{formatDate(item.endAt)}</span>
+                  <span className="closed-row__title">{item.title}</span>
+                  <span className="closed-row__org">{item.org}</span>
+                </span>
+                <span className="closed-row__amount">{formatAmountEok(item.amountPerCompany)}</span>
+              </button>
+            </div>
           )
         })}
         {visibleCount < listItems.length && <div ref={sentinelRef} className="closed__sentinel" />}

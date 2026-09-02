@@ -22,6 +22,17 @@ export function formatAmountEok(value) {
   return manwonToEokString(Math.round(value / 10000))
 }
 
+// 나눗셈 계산식용 표기. "10억" 처럼 억 단위가 딱 떨어지면 '원' 을 붙이지 않는다.
+export function formatEokTerm(value) {
+  if (value === null || value === undefined) return ''
+  const manwon = Math.round(value / 10000)
+  const eok = Math.floor(manwon / 10000)
+  const rest = manwon % 10000
+  if (eok > 0 && rest > 0) return `${eok}억 ${rest.toLocaleString('ko-KR')}만원`
+  if (eok > 0) return `${eok}억`
+  return `${manwon.toLocaleString('ko-KR')}만원`
+}
+
 export function formatDate(isoString) {
   if (!isoString) return ''
   const d = new Date(isoString)
