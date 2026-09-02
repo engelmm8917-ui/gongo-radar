@@ -1,0 +1,91 @@
+.profile-setup {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 560px;
+  min-height: 100svh;
+  margin: 0 auto;
+  padding: 28px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.profile-setup__intro {
+  text-align: center;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.profile-setup__section h2 {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.profile-setup__select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 16px;
+  color: var(--text-h);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  appearance: none;
+}
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 9px 14px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.chip:hover {
+  border-color: var(--text);
+}
+
+.chip--selected,
+.chip--selected:hover {
+  color: var(--bg);
+  background: var(--text-h);
+  border-color: var(--text-h);
+}
+
+.profile-setup__hint {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.profile-setup__submit {
+  margin-top: auto;
+  padding: 14px;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--bg);
+  background: var(--text-h);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.profile-setup__submit:disabled {
+  color: var(--text);
+  background: var(--border);
+  cursor: not-allowed;
+}
