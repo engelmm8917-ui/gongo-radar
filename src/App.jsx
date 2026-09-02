@@ -2,6 +2,7 @@ import { useState } from 'react'
 import ProfileSetup from './screens/ProfileSetup'
 import Home from './screens/Home'
 import ClosedEligible from './screens/ClosedEligible'
+import Regions from './screens/Regions'
 
 function readProfile() {
   try {
@@ -25,7 +26,7 @@ function StubScreen({ title, onBack }) {
 
 function App() {
   const [profile, setProfile] = useState(readProfile)
-  const [view, setView] = useState('home') // 'home' | 'setup' | 'closed' | 'detail'
+  const [view, setView] = useState('home') // 'home' | 'setup' | 'closed' | 'regions' | 'detail'
   const [detailItem, setDetailItem] = useState(null)
 
   if (!profile || view === 'setup') {
@@ -44,6 +45,10 @@ function App() {
     return <ClosedEligible profile={profile} onBack={() => setView('home')} />
   }
 
+  if (view === 'regions') {
+    return <Regions profile={profile} onBack={() => setView('home')} />
+  }
+
   if (view === 'detail') {
     return (
       <StubScreen
@@ -58,6 +63,7 @@ function App() {
       profile={profile}
       onEditProfile={() => setView('setup')}
       onOpenClosed={() => setView('closed')}
+      onOpenRegions={() => setView('regions')}
       onOpenDetail={(item) => {
         setDetailItem(item)
         setView('detail')

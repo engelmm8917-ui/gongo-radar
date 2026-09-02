@@ -1,6 +1,4 @@
-const SIDO_ALIASES = {
-  전남광주: ['전남', '광주'], // 두 시도명이 붙어버린 데이터 오류. 양쪽 모두 충족으로 처리한다.
-}
+import { regionTokens } from './region.js'
 
 function isEmptyValue(value) {
   return value === null || value === undefined || String(value).trim() === ''
@@ -8,14 +6,6 @@ function isEmptyValue(value) {
 
 function isEmptyArray(arr) {
   return !Array.isArray(arr) || arr.length === 0
-}
-
-function regionTokens(region) {
-  if (SIDO_ALIASES[region]) return SIDO_ALIASES[region]
-  return String(region)
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean)
 }
 
 function judgeRegion(item, profile) {

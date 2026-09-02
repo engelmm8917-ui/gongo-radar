@@ -20,7 +20,7 @@ function formatDday(days) {
   return `D+${Math.abs(days)}`
 }
 
-export default function Home({ profile, onEditProfile, onOpenClosed, onOpenDetail }) {
+export default function Home({ profile, onEditProfile, onOpenClosed, onOpenRegions, onOpenDetail }) {
   const [status, setStatus] = useState('loading') // loading | ready | error
   const [judged, setJudged] = useState([])
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
@@ -125,6 +125,9 @@ export default function Home({ profile, onEditProfile, onOpenClosed, onOpenDetai
     <main className="home">
       <header className="home__summary">
         <span className="home__summary-chip">{summaryText}</span>
+        <button type="button" className="home__edit-btn" onClick={onOpenRegions}>
+          지역 분포
+        </button>
         <button type="button" className="home__edit-btn" onClick={onEditProfile}>
           조건 수정
         </button>

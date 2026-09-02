@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { judge } from '../lib/eligibility'
 import { formatAmountEok, formatKoreanAmountSum, formatDate } from '../lib/format'
+import ScreenHeader from '../components/ScreenHeader'
 import './ClosedEligible.css'
 
 const PAGE_SIZE = 30
@@ -107,7 +108,7 @@ export default function ClosedEligible({ profile, onBack }) {
   if (status === 'error') {
     return (
       <main className="closed">
-        <Header onBack={onBack} />
+        <ScreenHeader title="자격이 됐던 마감 공고" onBack={onBack} />
         <p className="closed__error">데이터를 불러오지 못했습니다.</p>
       </main>
     )
@@ -117,7 +118,7 @@ export default function ClosedEligible({ profile, onBack }) {
 
   return (
     <main className="closed">
-      <Header onBack={onBack} />
+      <ScreenHeader title="자격이 됐던 마감 공고" onBack={onBack} />
 
       <section className="closed__hero">
         <p className="closed__subtitle">지난 6개월, 우리 회사가 지원 자격이 됐던 마감 공고</p>
@@ -162,22 +163,10 @@ export default function ClosedEligible({ profile, onBack }) {
   )
 }
 
-function Header({ onBack }) {
-  return (
-    <header className="closed__header">
-      <button type="button" className="closed__back" onClick={onBack}>
-        ← 홈으로
-      </button>
-      <h1 className="closed__title">자격이 됐던 마감 공고</h1>
-      <span className="closed__header-spacer" aria-hidden="true" />
-    </header>
-  )
-}
-
 function ClosedEligibleSkeleton({ onBack }) {
   return (
     <main className="closed">
-      <Header onBack={onBack} />
+      <ScreenHeader title="자격이 됐던 마감 공고" onBack={onBack} />
       <div className="skeleton skeleton--hero" />
       <section className="closed__list">
         {Array.from({ length: 5 }).map((_, i) => (
