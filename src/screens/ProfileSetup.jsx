@@ -48,9 +48,21 @@ export default function ProfileSetup({ onComplete, initialProfile = null }) {
     onComplete(profile)
   }
 
+  const handleDemo = () => {
+    const profile = { sido: '전남', bizAge: '3년미만', targetType: '일반기업', fields: [] }
+    localStorage.setItem('profile', JSON.stringify(profile))
+    onComplete(profile)
+  }
+
   return (
     <main className="profile-setup">
       <p className="profile-setup__intro">3개만 고르면 됩니다. 사업 분야는 나중에 골라도 됩니다.</p>
+
+      {!initialProfile && (
+        <button type="button" className="profile-setup__demo-btn" onClick={handleDemo}>
+          전남 3년미만 일반기업으로 둘러보기
+        </button>
+      )}
 
       <section className="profile-setup__section">
         <h2>소재지</h2>
